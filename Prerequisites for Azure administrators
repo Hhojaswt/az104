@@ -1,0 +1,149 @@
+Bash command:
+
+include a path name in an ls command to list the contents of another directory:
+ls /etc
+
+As an example, files and directories whose names begin with a period are hidden from the user and aren't displayed by ls. However, you can include the -a (for "all") flag in an ls command and see everything in the target directory:
+ls -a /etc
+
+To learn about the options for a command, use the man (for "manual") command. For instance, to see all the options for the mkdir ("make directory") command, do this:
+man mkdir
+
+If the current directory contains files named 0001.jpg, 0002.jpg, and so on through 0009.jpg, the following command lists them all:
+ls 000?.jpg
+
+the following command lists all the files in the current directory whose names begin with a lowercase letter:
+ls [a-z]*
+
+To get even more information about the files and directories in the current directory, use an -l flag:
+ls -l
+
+
+The following command shows the contents of the os-release file stored in the /etc directory:
+cat /etc/os-release
+
+To run commands that require admin privilege without logging in as a superuser, you'll preface the commands with sudo:
+sudo cat /etc/at.deny
+
+You can move up a directory by specifying .. as the directory name:
+cd ..
+
+The following command creates a subdirectory named orders in the current working directory:
+mkdir orders
+
+Make it a habit to include -i in every rm command, and you might avoid falling victim to one of Linux's biggest blunders.
+rm -i *
+
+若要将名为 photos 的子目录中的所有文件复制到名为 images 的子目录中，请使用以下命令：
+cp photos/* images
+
+如果不存在，则可以创建该目录，然后使用以下命令复制 photos 目录的内容：
+cp -r photos images
+
+ps 命令可以提供当前运行的所有进程的快照。
+-e 会列出所有运行中的进程，通常数量很多。
+ps -e
+
+若要更全面地了解系统中正在运行的进程，请使用 -ef 标志：
+ps -ef 
+此标志显示所有正在运行的进程的名称、其进程标识号 (PID)、其父进程的 PID (PPID) 及其开始时间 (STIME)。 还显示其连接到 (TTY) 的终端（如果有）、其占用的 CPU 时间 (TIME) 及其完整路径名。
+
+ps aux 和 ps -ef 是相同的。 这种双重性可追溯到 POSIX Unix 系统（Linux 属其中之一）与 BSD Unix 系统（最常见的是 macOS）之间的历史差异。 最初，POSIX 使用 -ef，而 BSD 采用 aux。 现在，两种操作系统系列都接受这两种格式。
+
+假设要列出当前目录中的所有内容，并捕获名为 list.txt 的文件中的输出。 以下命令可实现此操作：
+ls > listing.txt
+
+
+可以将结果管道传输给 more 等其他命令，使输出更易于管理。 以下命令列出所有当前正在运行的进程。 但屏幕填满后，输出会暂停显示，直到你选择“Enter”后才会显示下一行：
+ps -ef | more
+
+
+还可以将文件用作输入。sort 会按字母顺序对文本进行排序：
+sort < file.txt
+
+cat 的输出转到 fmt，fmt 的输出转到 pr，依此类推。 fmt 将结果格式化为整齐段落。 pr 对结果进行分页处理。 lpr 将分页输出发送到打印机。
+cat file.txt | fmt | pr | lpr
+
+当前目录是什么？ 让我们使用 pwd 命令来了解一下。pwd 表示“print working directory”。它会输出你目前所在目录的长格式路径。
+pwd
+yourname@Azure:~$ pwd /home/yourname
+
+
+
+
+
+输入以下命令以启动 Linux 的 vi 编辑器：
+vi bad.py
+
+选择 Esc 键退出插入模式。 然后键入以下命令，再选择 Enter 键以保存程序并退出 vi
+:wq
+
+使用以下命令启动程序，并使其在后台运行：
+python3 bad.py &
+
+使用以下命令列出所有正在运行的进程，并将结果筛选为包含“python”的行：
+ps -ef | grep python
+
+调用 kill 时，必须确定要用于终止进程的“信号”。
+kill -l
+
+假设你要查看 Azure 的 westus 区域中可用的虚拟机 (VM) 大小的最新列表。 可以通过以下命令执行此操作：
+az vm list-sizes --location westus --output table
+
+若要查找数据科学中常用的“DS”大小，请使用以下命令：
+az vm list-sizes --location westus --output table | grep DS
+
+
+
+
+
+
+
+
+
+
+JSON ARM template:
+ARM template files are made up of the following elements:
+
+Element	Description
+schema	A required section that defines the location of the JSON schema file that describes the structure of JSON data. The version number you use depends on the scope of the deployment and your JSON editor.
+contentVersion	A required section that defines the version of your template (such as 1.0.0.0). You can use this value to document significant changes in your template to ensure you're deploying the right template.
+apiProfile	An optional section that defines a collection of API versions for resource types. You can use this value to avoid having to specify API versions for each resource in the template.
+parameters	An optional section where you define values that are provided during deployment. You can provide these values in a parameter file, by command-line parameters, or in the Azure portal.
+variables	An optional section where you define values that are used to simplify template language expressions.
+functions	An optional section where you can define user-defined functions that are available within the template. User-defined functions can simplify your template when complicated expressions are used repeatedly in your template.
+resources	A required section that defines the actual items you want to deploy or update in a resource group or a subscription.
+output	An optional section where you specify the values that are returned at the end of the deployment.
+	
+Example:
+
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.1",
+  "apiProfile": "",
+  "parameters": {},
+  "variables": {},
+  "functions": [],
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2023-05-01",
+      "name": "learntemplatestorage123",
+      "location": "westus",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "supportsHttpsTrafficOnly": true
+      }
+    }
+  ],
+  "outputs": {}
+}
+
+
+Sign in to Azure by using Azure PowerShell
+Connect-AzAccount
+
+Recall that ARM templates are idempotent, which means you can deploy the template to the same environment again, and if nothing changes in the template, nothing changes in the environment.
