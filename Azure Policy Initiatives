@@ -1,0 +1,35 @@
+Cloud governance is a continuous process.
+1. Build a governance team - Establish a dedicated cloud governance team that's responsible for defining, maintaining, and reporting on the progress of cloud governance policies.
+2. Assess cloud risks - Conduct a thorough risk assessment that's unique to your organization, addressing all risk categories, including regulatory compliance, security, operations, costs, data management, resource management, and AI-related risks.
+3. Document cloud governance policies - Clearly document cloud governance policies that dictate acceptable cloud usage and outline the rules and guidelines that mitigate identified risks.
+4. Enforce cloud governance policies - Implement a systematic approach to ensure compliance with cloud governance policies. Use automated tools alongside manual oversight to enforce compliance. These tools help set guardrails, monitor configurations, and ensure adherence to policies.
+5. Monitor cloud governance - Regularly monitor cloud usage and the governance teams to ensure ongoing compliance with the established cloud governance policies.
+
+
+Use the Policy exemptions feature to exempt a resource hierarchy or an individual resource from evaluation of initiatives or definitions. Resources that are exempt count toward overall compliance but can't be evaluated or have a temporary waiver. They're created as a child object on the resource hierarchy, or the individual resource granted the exemption.
+Policy exemptions aren't created during assignment time, but after, and the effect is still the same as an excluded scope. Two exemption categories exist and are used to group exemptions:
+	• Mitigated - The exemption is granted because the policy intent is met through another method.
+	• Waiver - The exemption is granted because the noncompliance state of the resource is temporarily accepted.
+
+
+The policy remediation task feature is used to bring resources into compliance based on a definition and assignment.
+
+Policy attestations are used by Azure Policy to set compliance states of resources or scopes targeted by manual policies.
+
+Evaluation timing:
+After the scan starts, several factors influence how long it takes for a compliance scan to complete:
+	• Policy definitions - The size and complexity of the policy definitions can increase scan time.
+	• Number of policies - The more policies applied, the longer the scan might take.
+	• Scope size - The size of the resource scope assigned to the policy also plays a role.
+	• System load - Compliance scans are a low-priority operation, meaning that if the system is busy with more critical tasks, the scan might take longer. The system prioritizes interactive and high-importance operations, so scans might take several minutes, or tens of minutes, even in smaller environments.
+	• Synchronous scan (Low-Priority Execution) - Because compliance scans are synchronous and assigned a low priority in Azure's system, they're delayed if the system is busy. This scan can significantly extend the time it takes for the scan to complete, even for smaller scopes or policies.
+
+Starting with Enforcement Mode Disabled and deploying policies in deployment rings ensures a controlled and safe approach to managing policy resources in your existing environment, lets you deactivate the enforcement of certain policy effects.
+
+
+
+
+
+
+
+
