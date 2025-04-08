@@ -1,0 +1,83 @@
+Understand Entra ID
+
+Entra ID
+Microsoft Entra ID is a comprehensive solution for managing identities, enforcing access policies, and securing your applications and data in the cloud and on-premises.
+
+AD DS 或通常称为“Active Directory”
+is a directory service that provides the methods for storing directory data, such as user accounts and passwords, and makes this data available to network users, administrators, and other devices and services. It runs as a service on Windows Server, referred to as a domain controller.
+
+With Microsoft Entra ID, you also have access to a set of features that aren’t natively available in AD DS, such as support for multi-factor authentication, identity protection, and self-service password reset.
+
+Microsoft tenant
+与 AD DS 不同，Microsoft Entra ID 在设计上是muti-tenant的，其实现目的是确保其各个目录实例之间的隔离。
+
+An Azure subscription must be associated with one, and only one, Microsoft Entra tenant. This association allows you to grant permissions to resources in the Azure subscription (via RBAC) to users, groups, and applications that exist in that particular Microsoft Entra tenant.
+
+You can associate the same Microsoft Entra tenant with multiple Azure subscriptions.
+
+Each Microsoft Entra tenant is assigned the default Domain Name System (DNS) domain name, consisting of a unique prefix. The prefix, derived from the name of the Microsoft account you use to create an Azure subscription or provided explicitly when creating a Microsoft Entra tenant, is followed by the onmicrosoft.com suffix.
+
+
+Microsoft Entra schema
+Microsoft Entra 架构包含的对象类型少于 AD DS 包含的对象类型。 最值得注意的是，它不包含计算机类的定义，尽管它确实包含设备类。
+
+Application 和 servicePrincipal 类的对象表示 Microsoft Entra ID 中的应用程序。 Application 类中的对象包含应用程序定义，servicePrincipal 类中的对象构成其在当前 Microsoft Entra 租户中的实例。
+
+Compare Entra ID and ADDS
+You could view Microsoft Entra ID simply as the cloud-based counterpart of AD DS;
+ 虽然 AD DS 通常大都被认为是一种目录服务，但它只是 Windows Active Directory 技术套件的一个组件，该套件中还包括 Active Directory 证书服务 (AD CS)、Active Directory 轻型目录服务 (AD LDS)、Active Directory 联合身份验证服务 (AD FS) 和 Active Directory Rights Management Services (AD RMS)。
+
+• AD DS is a true directory service, with a 分层 X.500-based structure.
+• AD DS uses Domain Name System (DNS) for locating resources such as domain controllers.
+• You can query and manage AD DS by using Lightweight Directory Access Protocol (LDAP) calls.
+• AD DS primarily uses the Kerberos protocol for authentication.
+• AD DS uses OUs and GPOs for management.
+• AD DS includes computer objects, representing computers that join an Active Directory domain.
+• AD DS uses trusts between domains for 委派 management.
+
+可以在 Azure 虚拟机上部署 AD DS，以实现本地 AD DS 的可伸缩性和可用性。 但是，在 Azure 虚拟机上部署 AD DS 不会使用 Microsoft Entra ID。
+
+• Microsoft Entra ID is primarily an identity solution, and it’s designed for internet-based applications by using HTTP (port 80) and HTTPS (port 443) communications.
+• Microsoft Entra ID is a multi-tenant directory service.
+• Microsoft Entra users and groups are created in a flat structure, and there are no OUs or GPOs.
+• You can't query Microsoft Entra ID by using LDAP; instead, Microsoft Entra ID uses the REST API over HTTP and HTTPS.
+• Microsoft Entra ID doesn't use Kerberos authentication; instead, it uses HTTP and HTTPS protocols such as SAML, WS-Federation, and OpenID Connect for authentication, and uses OAuth for authorization.
+• Microsoft Entra ID includes federation services, and many third-party services such as Facebook are federated with and trust Microsoft Entra ID.
+
+
+Compare Microsoft Entra ID P1 and P2 plans
+
+ Microsoft Entra ID P1 或 P2 有两个版本：P1 和 P2。
+Microsoft Entra ID P1 提供以下功能：
+• Self-service group management.  users are given the rights to create and manage the groups. 
+• Advanced security reports and alerts. You can monitor and protect access to your cloud applications by viewing detailed logs that show advanced pattern reports.
+• Multi-factor(身份) authentication. Full multi-factor authentication (MFA) works with on-premises applications (using virtual private network [VPN], RADIUS, and others), Azure, Microsoft 365, Dynamics 365, and third-party Microsoft Entra gallery applications.
+• Microsoft Identity Manager (MIM) licensing. MIM integrates with Microsoft Entra ID P1 or P2 to provide hybrid identity solutions. MIM can bridge multiple on-premises authentication stores such as AD DS, LDAP, Oracle, and other applications with Microsoft Entra ID. 
+• Enterprise SLA of 99.9%.  The same SLA applies to Microsoft Entra Basic.
+• Password reset with writeback. 
+• Cloud App Discovery feature of Microsoft Entra ID. 
+• Conditional Access based on device, group, or location. 
+• Microsoft Entra Connect Health. 
+
+Microsoft Entra ID P2 提供额外的功能：
+
+• Microsoft Entra ID Protection. This feature provides enhanced functionalities for monitoring and protecting user accounts. Define user risk policies and sign-in policies. 
+• Microsoft Entra Privileged Identity Management. This functionality lets you configure additional security levels for privileged users such as administrators. Define a policy workflow that activates whenever someone wants to use administrative privileges to perform some task.
+
+Examine Microsoft Entra Domain Services
+
+How to provide authentication services to Line-of-business apps?
+
+Microsoft provides Microsoft Entra Domain Services as an alternative. This service, which runs as part of the Microsoft Entra ID P1 or P2 tier, provides domain services such as Group Policy management, domain joining, and Kerberos authentication to your Microsoft Entra tenant. These services are fully 兼容 with locally deployed AD DS, so you can use them without deploying domain controllers in the cloud.
+
+You can enable Microsoft Entra Domain Services for this virtual network so that all on-premises users and services can use domain services from Microsoft Entra ID.
+
+Limitation:
+• Only the base computer Active Directory object is supported.
+• It’s not possible to extend the schema for the Microsoft Entra Domain Services domain.
+• The organizational unit (OU) structure is flat and nested OUs aren't currently supported.
+• There’s a built-in Group Policy Object (GPO), and it exists for computer and user accounts.
+• It’s not possible to target OUs with built-in GPOs. Additionally, you can't use Windows Management Instrumentation filters or security-group filtering.
+
+This service charges per hour based on the size of your directory.
+
