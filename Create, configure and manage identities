@@ -1,0 +1,46 @@
+Microsoft Entra ID 以三种方式定义用户：
+
+• Cloud identities - These users exist only in Microsoft Entra ID. Examples are administrator accounts and users that you manage yourself. 
+• Directory-synchronized identities - These users exist in an on-premises Active Directory. A synchronization activity that occurs via Microsoft Entra Connect brings these users in to Azure. Their source is Windows Server AD.
+• Guest users - These users exist outside Azure. Examples are accounts from other cloud providers and Microsoft accounts such as an Xbox LIVE account. Once their help is no longer necessary, you can remove the account and all of their access.
+
+
+You must have one of the following roles to restore or permanently delete users.
+	• Global administrator
+	• Partner Tier-1 Support
+	• Partner Tier-2 Support
+	• User administrator
+
+
+By default, deleted user accounts are permanently removed from Microsoft Entra ID automatically after 30 days.
+
+Groups allow us to define a security boundary and then add and remove specific users to grant or deny access with a minimum amount of effort. 
+
+Microsoft Entra ID allows you to define two different types of groups.
+	• Security groups - 最常见的组类型，用于管理成员和一组用户对共享资源的计算机访问权限。
+	• Microsoft 365 groups - 通过为成员分配对共享邮箱、日历、文件、SharePoint 站点等的访问权限来提供协作机会。
+	
+	
+
+
+
+
+管理员可以使用移动设备管理 (MDM) 工具（如 Microsoft Intune）或使用 Microsoft Endpoint Configuration Manager（在共同管理场景中）保护和进一步控制已加入 Microsoft Entra 的设备。 通过这些工具，可强制实施组织要求的配置，例如要求加密存储、密码复杂度、软件安装和软件更新。 管理员可以使用 Configuration Manager 将组织应用程序提供给已加入 Microsoft Entra 的设备。
+
+
+ E3 产品包含的服务计划不能与 E1 中包含的计划重叠，因此，组许可证分配会失败并显示“冲突的服务计划”错误。 在此示例中，冲突的服务计划为：
+	• SharePoint Online（计划 2）与 SharePoint Online（计划 1）冲突。
+	• Exchange Online（计划 2）与 Exchange Online（计划 1）冲突。
+若要解决此冲突，需要禁用两个计划。 可以禁用直接分配给用户的 E1 许可证。
+
+
+Microsoft Workplace Analytics 是一个附加产品。 它包含同名单一服务计划。 仅当同时分配了以下必备产品之一时，才能将此服务计划分配到用户或组：
+	• Exchange Online（计划 1）
+	• Exchange Online（计划 2）
+如果尝试将此产品本身分配到组，门户将返回通知消息。 如果选择项详细信息，会显示以下错误消息：
+许可证操作失败。 添加或删除从属服务前，请确保组具有必要的服务。 Microsoft Workplace Analytics 服务还要求启用 Exchange Online（计划 2）。
+
+ 
+
+
+
